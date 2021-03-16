@@ -112,30 +112,12 @@
                 <!--  Items  -->
                 <mah:HamburgerMenu.ItemsSource>
                     <mah:HamburgerMenuItemCollection>
-                        <mah:HamburgerMenuIconItem  Label="欢迎使用" Tag="./View/IndexPage.xaml">
-                            <mah:HamburgerMenuIconItem.Icon>
-								<iconPacks:PackIconModern  Margin="12" Kind="Home"
-								                           Foreground="White"
-								                           HorizontalAlignment="Center" 
-								                           VerticalAlignment="Center"></iconPacks:PackIconModern>
-                            </mah:HamburgerMenuIconItem.Icon>
+                        <mah:HamburgerMenuIconItem  Label="主页" Tag="./View/IndexPage.xaml">
                         </mah:HamburgerMenuIconItem>
                         
                         <mah:HamburgerMenuIconItem Label="设置" Tag="./View/SettingPage.xaml">
-                            <mah:HamburgerMenuIconItem.Icon>
-                                <iconPacks:PackIconModern  Margin="12" Kind="Tools"
-                                                             Foreground="White"
-                                                             HorizontalAlignment="Center" 
-                                                             VerticalAlignment="Center"></iconPacks:PackIconModern>
-                            </mah:HamburgerMenuIconItem.Icon>
                         </mah:HamburgerMenuIconItem>
 	                    <mah:HamburgerMenuIconItem Label="示例" Tag="./View/ProductPage.xaml">
-		                    <mah:HamburgerMenuIconItem.Icon>
-			                    <iconPacks:PackIconModern  Margin="12" Kind="Tools"
-			                                               Foreground="White"
-			                                               HorizontalAlignment="Center" 
-			                                               VerticalAlignment="Center"></iconPacks:PackIconModern>
-		                    </mah:HamburgerMenuIconItem.Icon>
 	                    </mah:HamburgerMenuIconItem>
 
 
