@@ -13,6 +13,16 @@
 
     <Grid>
         <StackPanel Margin="20,0">
+	        <Grid Margin="0,10">
+		        <Grid.ColumnDefinitions>
+			        <ColumnDefinition Width="*"></ColumnDefinition>
+			        <ColumnDefinition Width="2*"></ColumnDefinition>
+		        </Grid.ColumnDefinitions>
+				<Label Content="使用SyntaxFactory库前缀"></Label>
+
+		        <mah:ToggleSwitch Grid.Column="1" 
+		                          IsOn="{Binding SettingInfo.AvoidUsingStatic}"></mah:ToggleSwitch>
+	        </Grid>
 			<Grid Margin="0,10">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"></ColumnDefinition>

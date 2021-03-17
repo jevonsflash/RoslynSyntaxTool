@@ -42,7 +42,7 @@ namespace Workshop
                 {
                     SettingInfo = new SettingInfo()
                     {
-                       
+                       AvoidUsingStatic = true
                     };
                     LocalDataService.SaveObjectLocal(SettingInfo);
 
