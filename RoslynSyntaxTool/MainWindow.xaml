@@ -8,7 +8,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
                  WindowState="Maximized"
-        Title="Roslyn Syntax Tool 版本1.0" Height="720" Width="1080">
+        Title="Roslyn Syntax Tool 版本1.1" Height="720" Width="1080">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button Content="关于" Click="ButtonBase_OnClick"></Button>
@@ -141,9 +141,10 @@
                             <ContentControl Grid.Row="1" Focusable="False" >
 
                                 <Frame x:Name="MainFrame"
+                                       
                                            Navigated="MainFrame_OnNavigated"
                                                Source="{Binding ElementName=HamburgerMenuControl,Path=SelectedItem.Tag}"
-                                               NavigationUIVisibility="Visible" />
+                                               NavigationUIVisibility="Hidden" />
 
 
                             </ContentControl>

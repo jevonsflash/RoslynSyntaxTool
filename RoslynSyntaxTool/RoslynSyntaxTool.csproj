@@ -60,6 +60,9 @@
     <Compile Update="View\ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="View\IndexPage - 复制.xaml.cs">
+      <DependentUpon>IndexPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="View\IndexPage.xaml.cs">
       <DependentUpon>IndexPage.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ErrorPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ConvertToCSharpPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\IndexPage.xaml">

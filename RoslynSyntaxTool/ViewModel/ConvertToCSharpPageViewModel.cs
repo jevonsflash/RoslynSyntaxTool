@@ -20,11 +20,11 @@ using Workshop.Service;
 
 namespace Workshop.ViewModel
 {
-    public class IndexPageViewModel : ObservableObject
+    public class ConvertToCSharpPageViewModel : ObservableObject
     {
         private string _oldResponseContent;
 
-        public IndexPageViewModel()
+        public ConvertToCSharpPageViewModel()
         {
             CurrentContent = new TextDocument();
             ResponseContent = new TextDocument();
