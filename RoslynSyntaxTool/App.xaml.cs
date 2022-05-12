@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Windows;
 using System.Windows.Threading;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
 using Workshop.Common;
 using Workshop.Helper;
-
+using Workshop.ViewModel;
 
 namespace Workshop
 {
@@ -18,9 +19,24 @@ namespace Workshop
     /// </summary>
     public partial class App : Application
     {
+        private bool _initialized;
+        
         public static string Session;
         public App()
         {
+            // Register services
+            if (!_initialized)
+            {
+                _initialized = true;
+                Ioc.Default.ConfigureServices(
+                    new ServiceCollection()
+                    //ViewModels
+                    .AddSingleton<MainViewModel>()
+                    .AddSingleton<IndexPageViewModel>()
+                    .AddSingleton<SettingPageViewModel>()
+                    .BuildServiceProvider());
+            }
+
             App.Current.Startup += Current_Startup;
             App.Current.Exit += Current_Exit;
 
@@ -41,7 +57,7 @@ namespace Workshop
         {
             try
             {
-                Messenger.Default.Send("", MessengerToken.CLOSEPROGRESS);
+                WeakReferenceMessenger.Default.Send(MessengerToken.CLOSEPROGRESS);
 
                 LogHelper.LogError("UI线程全局异常" + e.Exception);
                 MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message, "UI线程全局异常", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -63,7 +79,7 @@ namespace Workshop
         {
             try
             {
-                Messenger.Default.Send("", MessengerToken.CLOSEPROGRESS);
+                WeakReferenceMessenger.Default.Send(MessengerToken.CLOSEPROGRESS);
 
                 var exception = e.ExceptionObject as Exception;
                 if (exception != null)
@@ -85,7 +101,6 @@ namespace Workshop
             Current.DispatcherUnhandledException += App_OnDispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             LogHelper.LogFlag = true;
-            DispatcherHelper.Initialize();
 
         }
     }

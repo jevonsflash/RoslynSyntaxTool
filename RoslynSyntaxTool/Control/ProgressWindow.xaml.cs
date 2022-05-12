@@ -1,7 +1,8 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,26 @@ namespace Workshop.Control
     /// </summary>
     public partial class ProgressWindow : MetroWindow
     {
+        public static ProgressWindow Instance;
+        static ProgressWindow()
+        {
+        }
+
+        public static void StaticShowDialog(string title)
+        {
+            Instance = new ProgressWindow();
+            Instance.ShowDialog(title);
+        }
+
+        public static void StaticUnShowDialog()
+        {
+            if (Instance!=null)
+            {
+                Instance.Close();
+                Instance = null;
+            }
+        }
+
         public double CurrentVal { get; private set; }
         public double TotalVal { get; private set; }
 
@@ -29,9 +50,10 @@ namespace Workshop.Control
         public ProgressWindow()
         {
             InitializeComponent();
-            Messenger.Default.Register<string>(this, MessengerToken.UPDATEPROGRESS, HandleMessage);
-            Messenger.Default.Register<string>(this, MessengerToken.CLOSEPROGRESS, HandleClose);
-            this.Unloaded += (sender, e) => Messenger.Default.Unregister(this);
+            WeakReferenceMessenger.Default.Register<string>( MessengerToken.UPDATEPROGRESS, HandleMessage);
+            WeakReferenceMessenger.Default.Register<string>( MessengerToken.CLOSEPROGRESS, HandleClose);
+            this.Unloaded += (sender, e) => WeakReferenceMessenger.Default.UnregisterAll(MessengerToken.UPDATEPROGRESS);
+            this.Unloaded += (sender, e) => WeakReferenceMessenger.Default.UnregisterAll(MessengerToken.CLOSEPROGRESS);
 
         }
 
@@ -48,12 +70,13 @@ namespace Workshop.Control
             base.ShowDialog();
         }
 
-        private void HandleClose(string obj)
+        private void HandleClose(object recipient, string obj)
         {
+            Debug.WriteLine("ProgressWindow close by" +obj);
             this.Close();
         }
 
-        private void HandleMessage(string obj)
+        private void HandleMessage(object recipient, string obj)
         {
             this.MainProgress.IsIndeterminate = false;
             this.CancelButton.Visibility = Visibility.Visible;

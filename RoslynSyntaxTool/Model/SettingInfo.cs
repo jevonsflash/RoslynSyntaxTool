@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using RoslynQuoter;
 
 namespace Workshop.Model
 {
-    public class SettingInfo : ViewModelBase
+    public class SettingInfo : ObservableObject
     {
        
 
@@ -20,7 +20,7 @@ namespace Workshop.Model
             set
             {
                 _nodeKind = value;
-                RaisePropertyChanged(nameof(NodeKind));
+                OnPropertyChanged(nameof(NodeKind));
 
             }
         }
@@ -33,7 +33,7 @@ namespace Workshop.Model
             set
             {
                 _openCurlyOnNewLine = value;
-                RaisePropertyChanged(nameof(OpenCurlyOnNewLine));
+                OnPropertyChanged(nameof(OpenCurlyOnNewLine));
 
             }
         }
@@ -46,7 +46,7 @@ namespace Workshop.Model
             set
             {
                 _closeCurlyOnNewLine = value;
-                RaisePropertyChanged(nameof(CloseCurlyOnNewLine));
+                OnPropertyChanged(nameof(CloseCurlyOnNewLine));
 
             }
         }
@@ -59,7 +59,7 @@ namespace Workshop.Model
             set
             {
                 _preserveOriginalWhitespace = value;
-                RaisePropertyChanged(nameof(PreserveOriginalWhitespace));
+                OnPropertyChanged(nameof(PreserveOriginalWhitespace));
 
             }
         }
@@ -72,7 +72,7 @@ namespace Workshop.Model
             set
             {
                 _keepRedundantApiCalls = value;
-                RaisePropertyChanged(nameof(KeepRedundantApiCalls));
+                OnPropertyChanged(nameof(KeepRedundantApiCalls));
 
             }
         }
@@ -85,7 +85,7 @@ namespace Workshop.Model
             set
             {
                 _avoidUsingStatic = value;
-                RaisePropertyChanged(nameof(AvoidUsingStatic));
+                OnPropertyChanged(nameof(AvoidUsingStatic));
 
             }
         }

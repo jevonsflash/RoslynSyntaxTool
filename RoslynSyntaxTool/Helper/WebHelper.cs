@@ -5,9 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Windows;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
 using Workshop.Common;
 
 namespace Workshop.Helper
@@ -68,12 +67,16 @@ namespace Workshop.Helper
             }
             catch (Exception e)
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    Messenger.Default.Send("", MessengerToken.CLOSEPROGRESS);
 
-                });
-                MessageBox.Show("未能连接至远程服务器，请检查网络连接", "无网络", MessageBoxButton.OK, MessageBoxImage.Warning);
+                InvokeHelper.InvokeOnUi("正在检查网络", () =>
+                {
+                    Thread.Sleep(2000);
+                }).ContinueWith((t) =>
+                {
+
+                    MessageBox.Show("未能连接至远程服务器，请检查网络连接", "无网络", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }); ;
+
             }
 
 

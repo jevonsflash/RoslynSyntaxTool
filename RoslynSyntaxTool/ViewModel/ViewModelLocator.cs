@@ -1,6 +1,5 @@
-using CommonServiceLocator;
-using GalaSoft.MvvmLight.Ioc;
-using Workshop.View;
+using CommunityToolkit.Mvvm.DependencyInjection;
+
 
 namespace Workshop.ViewModel
 {
@@ -8,23 +7,16 @@ namespace Workshop.ViewModel
     {
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<IndexPageViewModel>();
-            SimpleIoc.Default.Register<SettingPageViewModel>();
 
         }
-
-        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public IndexPageViewModel IndexPage => ServiceLocator.Current.GetInstance<IndexPageViewModel>();
-        public SettingPageViewModel SettingPage => ServiceLocator.Current.GetInstance<SettingPageViewModel>();
+        public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
+        public IndexPageViewModel IndexPage => Ioc.Default.GetRequiredService<IndexPageViewModel>();
+        public SettingPageViewModel SettingPage => Ioc.Default.GetRequiredService<SettingPageViewModel>();
 
 
         public static void Cleanup<T>() where T : class
         {
-            SimpleIoc.Default.Unregister<T>();
-            SimpleIoc.Default.Register<T>();
         }
     }
 }

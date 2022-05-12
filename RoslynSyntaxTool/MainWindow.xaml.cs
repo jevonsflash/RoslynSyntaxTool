@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
 using GeneralServiceHost.View;
 using Workshop.Common;
 using Workshop.Control;
@@ -29,14 +27,8 @@ namespace Workshop
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Task.Factory.StartNew(() =>
+            var task = InvokeHelper.InvokeOnUi("正在初始化", () =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    ProgressWindow progressWindow = new ProgressWindow();
-                    progressWindow.ShowDialog("正在初始化");
-
-                });
                 var SettingInfo = LocalDataService.ReadObjectLocal<SettingInfo>();
                 if (SettingInfo == null)
                 {
@@ -47,14 +39,6 @@ namespace Workshop
                     LocalDataService.SaveObjectLocal(SettingInfo);
 
                 }
-
-             
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    Messenger.Default.Send("", MessengerToken.CLOSEPROGRESS);
-
-                });
-
             });
         }
 

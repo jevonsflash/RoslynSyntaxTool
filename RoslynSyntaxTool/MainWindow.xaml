@@ -112,7 +112,7 @@
                 <!--  Items  -->
                 <mah:HamburgerMenu.ItemsSource>
                     <mah:HamburgerMenuItemCollection>
-                        <mah:HamburgerMenuIconItem  Label="主页" Tag="./View/IndexPage.xaml">
+                        <mah:HamburgerMenuIconItem  Label="转换" Tag="./View/IndexPage.xaml">
                         </mah:HamburgerMenuIconItem>
                         
                         <mah:HamburgerMenuIconItem Label="设置" Tag="./View/SettingPage.xaml">

@@ -7,7 +7,7 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
-      xmlns:view="clr-namespace:Workshop.View"
+      xmlns:view="clr-namespace:Workshop.View" xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
       DataContext="{Binding Source={StaticResource Locator},Path=IndexPage}"
 
       mc:Ignorable="d" 
@@ -36,17 +36,16 @@
 		</Grid>
 		<Grid Grid.Row="1">
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition></ColumnDefinition>
-				<ColumnDefinition></ColumnDefinition>
-			</Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <avalonedit:TextEditor x:Name="CurrentText"  Margin="10" SyntaxHighlighting="C#"  ShowLineNumbers="True" Document="{Binding CurrentContent, Mode=TwoWay}" VerticalScrollBarVisibility="Auto" />
+            <avalonedit:TextEditor Grid.Column="1"  Margin="10"  SyntaxHighlighting="C#"  ShowLineNumbers="True" Document="{Binding ResponseContent, Mode=TwoWay}"   VerticalScrollBarVisibility="Auto"/>
 
 
-			<TextBox x:Name="CurrentText" mah:TextBoxHelper.Watermark="输入待转换的C#代码" Margin="10" AcceptsReturn="True"  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding CurrentContent}"/>
-			<TextBox Grid.Column="1" mah:TextBoxHelper.Watermark="点击生成按钮转换代码" Margin="10"   TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding ResponseContent}" />
-
-
-		</Grid>
+        </Grid>
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition></ColumnDefinition>

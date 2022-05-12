@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Highlighting;
 using RoslynQuoter;
 using Workshop.Common;
 using Workshop.Control;
@@ -20,11 +20,13 @@ using Workshop.Service;
 
 namespace Workshop.ViewModel
 {
-    public class IndexPageViewModel : ViewModelBase
+    public class IndexPageViewModel : ObservableObject
     {
 
         public IndexPageViewModel()
         {
+            CurrentContent = new TextDocument();
+            ResponseContent = new TextDocument();
             ContinueCommand = new RelayCommand(ContinueAction);
             CopyToClipboardCommand = new RelayCommand(CopyToClipboardAction);
         }
@@ -32,36 +34,31 @@ namespace Workshop.ViewModel
         private void CopyToClipboardAction()
         {
 
-            if (string.IsNullOrEmpty(ResponseContent))
+            if (string.IsNullOrEmpty(ResponseContentText))
             {
                 return;
             }
-            Clipboard.SetText(ResponseContent);
+            Clipboard.SetText(ResponseContentText);
         }
 
 
         private void ContinueAction()
         {
+            var currentContentText = CurrentContentText;
 
-            Task.Factory.StartNew(() =>
+            var task = InvokeHelper.InvokeOnUi(null, () =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    ProgressWindow progressWindow = new ProgressWindow();
-                    progressWindow.ShowDialog("获取数据中");
-
-                });
                 var settingInfo = LocalDataService.ReadObjectLocal<SettingInfo>();
 
                 var responseText = String.Empty;
 
-                if (string.IsNullOrEmpty(CurrentContent))
+                if (string.IsNullOrEmpty(currentContentText))
                 {
                     responseText = "Please specify the source text.";
                 }
-                else if (CurrentContent.Length > 2000)
+                else if (currentContentText.Length > 2000)
                 {
-                    responseText = "Only strings shorter than 2000 characters are supported; your input string is " + CurrentContent.Length + " characters long.";
+                    responseText = "Only strings shorter than 2000 characters are supported; your input string is " + currentContentText.Length + " characters long.";
                 }
                 else
                 {
@@ -76,7 +73,7 @@ namespace Workshop.ViewModel
                             ShortenCodeWithUsingStatic = !settingInfo.AvoidUsingStatic
                         };
 
-                        responseText = quoter.QuoteText(CurrentContent);
+                        responseText = quoter.QuoteText(currentContentText);
                     }
                     catch (Exception ex)
                     {
@@ -85,40 +82,46 @@ namespace Workshop.ViewModel
                     }
                 }
 
-                ResponseContent = responseText;
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    Messenger.Default.Send("", MessengerToken.CLOSEPROGRESS);
+                //ResponseContent.Remove(0, ResponseContent.TextLength);
+                //MessageBox.Show(responseText);
+                return responseText;
 
-                });
+            }, (t) =>
+            {
+                ResponseContent.Text = t;
 
             });
         }
-        private string _currentContent;
 
-        public string CurrentContent
+
+
+        public string CurrentContentText => CurrentContent.Text;
+        public string ResponseContentText => ResponseContent.Text;
+
+        private TextDocument _currentContent;
+
+        public TextDocument CurrentContent
         {
             get { return _currentContent; }
             set
             {
                 _currentContent = value;
-                RaisePropertyChanged(nameof(CurrentContent));
+                OnPropertyChanged(nameof(CurrentContent));
             }
         }
 
-        private string _responseContent;
+        private TextDocument _responseContent;
 
-        public string ResponseContent
+        public TextDocument ResponseContent
         {
             get { return _responseContent; }
             set
             {
                 _responseContent = value;
-                RaisePropertyChanged(nameof(ResponseContent));
+                OnPropertyChanged(nameof(ResponseContent));
             }
         }
         public RelayCommand ContinueCommand { get; set; }
         public RelayCommand CopyToClipboardCommand { get; set; }
-
     }
 }
