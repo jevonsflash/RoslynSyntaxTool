@@ -50,13 +50,21 @@ namespace Workshop.Control
         public ProgressWindow()
         {
             InitializeComponent();
-            WeakReferenceMessenger.Default.Register<string>( MessengerToken.UPDATEPROGRESS, HandleMessage);
-            WeakReferenceMessenger.Default.Register<string>( MessengerToken.CLOSEPROGRESS, HandleClose);
+            Register(MessengerToken.UPDATEPROGRESS, HandleMessage);
+            Register(MessengerToken.CLOSEPROGRESS, HandleClose);
             this.Unloaded += (sender, e) => WeakReferenceMessenger.Default.UnregisterAll(MessengerToken.UPDATEPROGRESS);
             this.Unloaded += (sender, e) => WeakReferenceMessenger.Default.UnregisterAll(MessengerToken.CLOSEPROGRESS);
 
         }
 
+        private void Register(object recipient, MessageHandler<object, string> handler)
+        {
+            if (!WeakReferenceMessenger.Default.IsRegistered<string>(recipient))
+            {
+                WeakReferenceMessenger.Default.Register<string>(recipient, handler);
+
+            }
+        }
 
         public void Show(string title)
         {

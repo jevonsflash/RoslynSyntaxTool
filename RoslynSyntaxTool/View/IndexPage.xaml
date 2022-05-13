@@ -7,7 +7,7 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:converters="http://metro.mahapps.com/winfx/xaml/shared"
-      xmlns:view="clr-namespace:Workshop.View" xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+      xmlns:view="clr-namespace:Workshop.View" xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:control="clr-namespace:Workshop.Control"
       DataContext="{Binding Source={StaticResource Locator},Path=IndexPage}"
 
       mc:Ignorable="d" 
@@ -51,11 +51,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-
             <avalonedit:TextEditor x:Name="CurrentText"  Margin="10" SyntaxHighlighting="C#"  ShowLineNumbers="True" Document="{Binding CurrentContent, Mode=TwoWay}" VerticalScrollBarVisibility="Auto" />
             <avalonedit:TextEditor Grid.Column="1"  Margin="10"  SyntaxHighlighting="C#"  ShowLineNumbers="True" Document="{Binding ResponseContent, Mode=TwoWay}"   VerticalScrollBarVisibility="Auto"/>
-
+            <control:SyntaxTreeViewer Grid.Column="2"  x:Name="treeViewer"></control:SyntaxTreeViewer>
 
         </Grid>
 		<Grid Grid.Row="3">

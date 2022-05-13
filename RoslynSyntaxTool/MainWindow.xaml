@@ -112,9 +112,10 @@
                 <!--  Items  -->
                 <mah:HamburgerMenu.ItemsSource>
                     <mah:HamburgerMenuItemCollection>
-                        <mah:HamburgerMenuIconItem  Label="转换" Tag="./View/IndexPage.xaml">
+                        <mah:HamburgerMenuIconItem  Label="C# 转 Syntax" Tag="./View/IndexPage.xaml">
                         </mah:HamburgerMenuIconItem>
-                        
+                        <mah:HamburgerMenuIconItem  Label="Syntax 转 C#" Tag="./View/ConvertToCSharpPage.xaml">
+                        </mah:HamburgerMenuIconItem>
                         <mah:HamburgerMenuIconItem Label="设置" Tag="./View/SettingPage.xaml">
                         </mah:HamburgerMenuIconItem>
 	                    <mah:HamburgerMenuIconItem Label="示例" Tag="./View/ProductPage.xaml">

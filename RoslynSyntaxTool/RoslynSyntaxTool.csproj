@@ -28,6 +28,8 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
@@ -49,6 +51,9 @@
     </Compile>
     <Compile Update="Control\SimpleKeyValueControl.xaml.cs">
       <DependentUpon>SimpleKeyValueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Control\SyntaxDetailViewer.xaml.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainWindow.xaml.cs">
       <SubType>Code</SubType>
@@ -76,6 +81,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Control\SimpleKeyValueControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Control\SyntaxDetailViewer.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

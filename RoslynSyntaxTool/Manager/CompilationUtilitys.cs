@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,25 +14,21 @@ namespace Workshop.Manager
     {
         #region Public Method
 
-        public static MemoryStream CompileClientProxy(IEnumerable<SyntaxTree> trees, IEnumerable<MetadataReference> references)
+        public static MemoryStream CompileClientProxy(IEnumerable<SyntaxTree> trees)
         {
-#if !NET
-            var assemblys = new[]
-            {
-                "System.Runtime",
-                "mscorlib",
-                "System.Threading.Tasks",
-                 "System.Collections"
-            };
-            references = assemblys.Select(i => MetadataReference.CreateFromFile(Assembly.Load(new AssemblyName(i)).Location)).Concat(references).Distinct();
-#endif
-            references = new[]
-            {
+
+            var references = new[]
+               {
                 MetadataReference.CreateFromFile(typeof(SyntaxTree).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(StatementSyntax).GetTypeInfo().Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(SyntaxFactory).GetTypeInfo().Assembly.Location)
-            }.Concat(references).Distinct();
-            return Compile(AssemblyInfo.Create("RoslynSyntaxTool.Proxy.ConvertToCSharpProxy"), trees, references);
+            };
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var allReferences = assemblies.Where(c => !c.IsDynamic).Select(x => { 
+                var f = MetadataReference.CreateFromFile(x.Location); 
+                return f; 
+            }).Concat(references);
+            return Compile(AssemblyInfo.Create("RoslynSyntaxTool.Proxy.ConvertToCSharpProxy"), trees, allReferences);
         }
 
         public static MemoryStream Compile(AssemblyInfo assemblyInfo, IEnumerable<SyntaxTree> trees, IEnumerable<MetadataReference> references)

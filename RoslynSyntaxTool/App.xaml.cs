@@ -34,6 +34,8 @@ namespace Workshop
                     .AddSingleton<MainViewModel>()
                     .AddSingleton<IndexPageViewModel>()
                     .AddSingleton<SettingPageViewModel>()
+                    .AddSingleton<ConvertToCSharpPageViewModel>()
+                    .AddSingleton<SyntaxTreeViewerViewModel>()
                     .BuildServiceProvider());
             }
 

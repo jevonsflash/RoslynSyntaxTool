@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using RoslynQuoter;
@@ -127,7 +129,7 @@ namespace Workshop.ViewModel
                 {
                     MakeComplete();
                 }
-
+                Ioc.Default.GetService<SyntaxTreeViewerViewModel>().Init(this.CurrentContentText);
             });
         }
 

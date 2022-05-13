@@ -12,6 +12,8 @@ namespace Workshop.ViewModel
         }
         public MainViewModel Main => Ioc.Default.GetRequiredService<MainViewModel>();
         public IndexPageViewModel IndexPage => Ioc.Default.GetRequiredService<IndexPageViewModel>();
+        public ConvertToCSharpPageViewModel ConvertToCSharpPage => Ioc.Default.GetRequiredService<ConvertToCSharpPageViewModel>();
+        public SyntaxTreeViewerViewModel SyntaxTreeViewer => Ioc.Default.GetRequiredService<SyntaxTreeViewerViewModel>();
         public SettingPageViewModel SettingPage => Ioc.Default.GetRequiredService<SettingPageViewModel>();
 
 
