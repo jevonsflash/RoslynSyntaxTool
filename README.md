@@ -11,6 +11,8 @@ Roslyn 是微软开源的 .NET 编译平台。编译平台支持 C# 和 Visual B
 关于语法分析请查看官方文档
 https://docs.microsoft.com/zh-cn/dotnet/csharp/roslyn-sdk/get-started/syntax-analysis
 
+可以通过 [Roslyn 入门系列文章](https://blog.csdn.net/WPwalter/article/details/79616402) 学习Roslyn相关知识 
+
 ## 应用场景
 
 * 需要动态编译的，如在开发微服务中动态生成代理类，项目的插件化改造等
