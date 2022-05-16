@@ -24,7 +24,12 @@ namespace Workshop.View
             InitializeComponent();
         }
 
+     
 
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://docs.microsoft.com/zh-cn/dotnet/csharp/roslyn-sdk/get-started/syntax-analysis");
 
+        }
     }
 }

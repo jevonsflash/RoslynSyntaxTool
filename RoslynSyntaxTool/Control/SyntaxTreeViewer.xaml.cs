@@ -39,8 +39,11 @@ namespace Workshop.Control
 
         }
 
-    
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            (this.DataContext as SyntaxTreeViewerViewModel).CurrentItem=e.NewValue as SyntaxTreeItemInfo;
 
+        }
     }
 
 }

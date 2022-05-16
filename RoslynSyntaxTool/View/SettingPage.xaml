@@ -23,12 +23,23 @@
 		        <mah:ToggleSwitch Grid.Column="1" 
 		                          IsOn="{Binding SettingInfo.AvoidUsingStatic}"></mah:ToggleSwitch>
 	        </Grid>
-			<Grid Margin="0,10">
+
+            <Grid Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="在新行上生成开括号("></Label>
+                <mah:ToggleSwitch Grid.Column="1" 
+		                          IsOn="{Binding SettingInfo.OpenCurlyOnNewLine}"></mah:ToggleSwitch>
+            </Grid>
+
+            <Grid Margin="0,10">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"></ColumnDefinition>
 					<ColumnDefinition Width="2*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				<Label Content="在新行上闭括号"></Label>
+				<Label Content="在新行上生成闭括号)"></Label>
 				
 				<mah:ToggleSwitch Grid.Column="1" 
 				                  IsOn="{Binding SettingInfo.CloseCurlyOnNewLine}"></mah:ToggleSwitch>
@@ -39,21 +50,13 @@
 			        <ColumnDefinition Width="*"></ColumnDefinition>
 			        <ColumnDefinition Width="2*"></ColumnDefinition>
 		        </Grid.ColumnDefinitions>
-				<Label Content="保留冗余的 API 调用"></Label>
+				<Label Content="生成冗余的 API 调用"></Label>
 		        <mah:ToggleSwitch Grid.Column="1" 
 		                          IsOn="{Binding SettingInfo.KeepRedundantApiCalls}"></mah:ToggleSwitch>
 	        </Grid>
 	     
 
-	        <Grid Margin="0,10">
-		        <Grid.ColumnDefinitions>
-			        <ColumnDefinition Width="*"></ColumnDefinition>
-			        <ColumnDefinition Width="2*"></ColumnDefinition>
-		        </Grid.ColumnDefinitions>
-				<Label Content="在新行上开括号"></Label>
-		        <mah:ToggleSwitch Grid.Column="1" 
-		                          IsOn="{Binding SettingInfo.OpenCurlyOnNewLine}"></mah:ToggleSwitch>
-	        </Grid>
+	  
 
 	        <Grid Margin="0,10">
 		        <Grid.ColumnDefinitions>

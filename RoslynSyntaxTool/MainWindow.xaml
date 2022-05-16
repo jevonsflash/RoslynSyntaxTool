@@ -8,7 +8,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
                  WindowState="Maximized"
-        Title="Roslyn Syntax Tool 版本1.1" Height="720" Width="1080">
+        Title="Roslyn Syntax Tool 版本2.0" Height="720" Width="1080">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button Content="关于" Click="ButtonBase_OnClick"></Button>
@@ -112,9 +112,9 @@
                 <!--  Items  -->
                 <mah:HamburgerMenu.ItemsSource>
                     <mah:HamburgerMenuItemCollection>
-                        <mah:HamburgerMenuIconItem  Label="C# 转 Syntax" Tag="./View/IndexPage.xaml">
+                        <mah:HamburgerMenuIconItem  Label="C# To SyntaxTree" Tag="./View/IndexPage.xaml">
                         </mah:HamburgerMenuIconItem>
-                        <mah:HamburgerMenuIconItem  Label="Syntax 转 C#" Tag="./View/ConvertToCSharpPage.xaml">
+                        <mah:HamburgerMenuIconItem  Label="SyntaxTree To C#" Tag="./View/ConvertToCSharpPage.xaml">
                         </mah:HamburgerMenuIconItem>
                         <mah:HamburgerMenuIconItem Label="设置" Tag="./View/SettingPage.xaml">
                         </mah:HamburgerMenuIconItem>

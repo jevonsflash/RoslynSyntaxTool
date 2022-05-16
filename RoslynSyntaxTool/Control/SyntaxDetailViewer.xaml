@@ -3,8 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Workshop.Control"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:Workshop.Control" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding Source={StaticResource Locator},Path=SyntaxDetailViewer}">
 
@@ -17,13 +18,8 @@
             <TextBlock ></TextBlock>
             <TextBlock ></TextBlock>
         </StackPanel>
-        <TreeView Grid.Row="1" ItemsSource="{Binding RootItems}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate
-                              ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding Header}" ></TextBlock>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
+        <xctk:PropertyGrid Grid.Row="1" Background="White" BorderBrush="White" SelectedObject="{Binding CurrentItem}"></xctk:PropertyGrid>
+        
+        
     </Grid>
 </UserControl>

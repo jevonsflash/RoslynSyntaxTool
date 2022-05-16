@@ -24,7 +24,7 @@
                     HorizontalAlignment="Center"
                     Margin="12,0">
 			<TextBlock HorizontalAlignment="Center" Text="Roslyn Syntax Tool" FontSize="{StaticResource LargeFontSize}"></TextBlock>
-            <TextBlock HorizontalAlignment="Center" Text="1.1" Margin="0,5"></TextBlock>
+            <TextBlock HorizontalAlignment="Center" Text="2.0" Margin="0,5"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1" 
                     Margin="12,0">

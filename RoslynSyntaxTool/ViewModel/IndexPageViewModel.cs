@@ -34,6 +34,13 @@ namespace Workshop.ViewModel
             CopyToClipboardCommand = new RelayCommand(CopyToClipboardAction);
 
             this.PropertyChanged+=IndexPageViewModel_PropertyChanged;
+
+            if (DirFileHelper.IsExistFile("default.txt"))
+            {
+                this.CurrentContent.Text=DirFileHelper.ReadFile("default.txt");
+                this.ContinueCommand.Execute(null);
+            }
+
         }
 
         private void IndexPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

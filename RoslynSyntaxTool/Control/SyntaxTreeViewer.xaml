@@ -3,27 +3,41 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:Workshop.Control"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding Source={StaticResource Locator},Path=SyntaxTreeViewer}">
+    <UserControl.Resources>
+        <Style x:Key="TreeViewStyle"  TargetType="TreeViewItem">
+            <Setter Property="IsSelected" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+        </Style>
+    </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel>
-            <TextBlock ></TextBlock>
-            <TextBlock ></TextBlock>
-        </StackPanel>
-        <TreeView Grid.Row="1" ItemsSource="{Binding RootItems}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+       
+        <TreeView Grid.Column="0"
+                 SelectedItemChanged="TreeView_SelectedItemChanged"
+                  ItemsSource="{Binding RootItems}" 
+                  ItemContainerStyle="{StaticResource TreeViewStyle}">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate
+                <HierarchicalDataTemplate   
+                    
                               ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding Header}" ></TextBlock>
+                    <TextBlock Foreground="{Binding Background}" Text="{Binding Header}" ToolTip="{Binding ToolTip}"></TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+        <StackPanel Grid.Column="1">
+            <local:SimpleKeyValueControl KeyText="Kind"
+                                           ValueText="{Binding Kind}"></local:SimpleKeyValueControl>
+            <local:SimpleKeyValueControl KeyText="Type"
+                                           ValueText="{Binding Type}"></local:SimpleKeyValueControl>
+
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -30,9 +30,9 @@ namespace Workshop.Control
     /// <summary>
     /// SyntaxTreeViewer.xaml 的交互逻辑
     /// </summary>
-    public partial class SyntaxTreeViewer : UserControl
+    public partial class SyntaxDetailViewer : UserControl
     {
-        public SyntaxTreeViewer()
+        public SyntaxDetailViewer()
         {
             InitializeComponent();
 

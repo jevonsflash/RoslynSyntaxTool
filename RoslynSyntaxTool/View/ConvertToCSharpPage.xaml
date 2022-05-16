@@ -32,7 +32,7 @@
                        Padding="0"
                        FontFamily="{DynamicResource HeaderFontFamily}"
                        FontSize="{DynamicResource HeaderFontSize}"
-                       Text="此工具能将C#代码，转换成使用语法工厂构造器（SyntaxFactory）生成等效语法树代码" />
+                       Text="将语法树(SyntaxTree)代码还原为C#代码" />
 
 		</Grid>
         <Grid Grid.Row="1">
@@ -42,9 +42,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label>C# 代码</Label>
-            <Label Grid.Column="1">SyntaxTree等效C#代码</Label>
-            <CheckBox Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding IsComplete}">完整方法</CheckBox>
+            <Label>SyntaxTree代码</Label>
+            <Label Grid.Column="1">原始 C# 代码</Label>
         </Grid>
 		<Grid Grid.Row="2" >
 

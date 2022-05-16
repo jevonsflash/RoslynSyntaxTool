@@ -38,8 +38,6 @@ namespace Workshop.ViewModel
         private ImmutableArray<ClassifiedSpan> classifiedSpans;
         private bool _isNavigatingFromTreeToSource;
         private bool _isNavigatingFromSourceToTree;
-        private string typeValueLabel;
-        private string kindValueLabel;
 
         public SyntaxTree SyntaxTree { get; private set; }
         public SemanticModel SemanticModel { get; private set; }
@@ -48,7 +46,20 @@ namespace Workshop.ViewModel
         {
 
             this.RootItems=new ObservableCollection<SyntaxTreeItemInfo>();
+            this.PropertyChanged+=SyntaxTreeViewerViewModel_PropertyChanged;
 
+        }
+
+        private void SyntaxTreeViewerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CurrentItem))
+            {
+                if (CurrentItem==null)
+                {
+                    return;
+                }
+                CurrentItem.Selected?.Invoke(CurrentItem);
+            }
         }
 
         public async void Init(string csharpText)
@@ -120,15 +131,16 @@ namespace Workshop.ViewModel
                 }
                 item.ToolTip = item.ToolTip.ToString().Trim();
             }
-
-            item.Selected += (sender, e) =>
+            item.Background="blue";
+            item.Selected += sender =>
             {
                 this._isNavigatingFromTreeToSource = true;
-                //this.typeTextLabel.Visibility = Visibility.Visible;
-                //this.kindTextLabel.Visibility = Visibility.Visible;
-                this.typeValueLabel = node.GetType().Name;
-                this.kindValueLabel = kind;
-                // // this._propertyGrid.SelectedObject = node;
+                this.Type = node.GetType().Name;
+                this.Kind = kind;
+
+                var syntaxDetailViewerViewModel = Ioc.Default.GetService<SyntaxDetailViewerViewModel>();
+                syntaxDetailViewerViewModel.Init(node);
+
                 item.IsExpanded = true;
                 if (!this._isNavigatingFromSourceToTree && this.SyntaxNodeNavigationToSourceRequested != null)
                 {
@@ -137,7 +149,7 @@ namespace Workshop.ViewModel
                 this._isNavigatingFromTreeToSource = false;
                 //e.Handled = true;
             };
-            item.Expanded +=  (sender, e) =>
+            item.Expanded +=  sender =>
             {
                 if (item.Items.Count == 1 && item.Items[0] == null)
                 {
@@ -211,14 +223,13 @@ namespace Workshop.ViewModel
                 }
                 item.ToolTip = item.ToolTip.ToString().Trim();
             }
-            item.Selected +=  (sender, e) =>
+            item.Selected +=  sender =>
             {
                 this._isNavigatingFromTreeToSource = true;
-                //this.typeTextLabel.Visibility = Visibility.Visible;
-                //this.kindTextLabel.Visibility = Visibility.Visible;
-                this.typeValueLabel = string.Join(", ", GetOperationInterfaces(operation));
-                this.kindValueLabel = kind;
-                // this._propertyGrid.SelectedObject = operation;
+                this.Type = string.Join(", ", GetOperationInterfaces(operation));
+                this.Kind = kind;
+                var syntaxDetailViewerViewModel = Ioc.Default.GetService<SyntaxDetailViewerViewModel>();
+                syntaxDetailViewerViewModel.Init(node);
                 item.IsExpanded = true;
                 if (!this._isNavigatingFromSourceToTree && this.SyntaxNodeNavigationToSourceRequested != null)
                 {
@@ -227,7 +238,7 @@ namespace Workshop.ViewModel
                 this._isNavigatingFromTreeToSource = false;
                 //   e.Handled = true;
             };
-            item.Expanded += (sender, e) =>
+            item.Expanded += sender =>
             {
                 if (item.Items.Count == 1 && item.Items[0] == null)
                 {
@@ -305,14 +316,14 @@ namespace Workshop.ViewModel
                 }
                 item.ToolTip = item.ToolTip.ToString().Trim();
             }
-            item.Selected += (sender, e) =>
+            item.Background="green";
+            item.Selected += sender =>
             {
                 this._isNavigatingFromTreeToSource = true;
-                //this.typeTextLabel.Visibility = Visibility.Visible;
-                //this.kindTextLabel.Visibility = Visibility.Visible;
-                this.typeValueLabel = token.GetType().Name;
-                this.kindValueLabel = kind;
-                // this._propertyGrid.SelectedObject = token;
+                this.Type = token.GetType().Name;
+                this.Kind = kind;
+                var syntaxDetailViewerViewModel = Ioc.Default.GetService<SyntaxDetailViewerViewModel>();
+                //syntaxDetailViewerViewModel.Init(token);
                 item.IsExpanded = true;
                 if (!this._isNavigatingFromSourceToTree && this.SyntaxTokenNavigationToSourceRequested != null)
                 {
@@ -321,7 +332,7 @@ namespace Workshop.ViewModel
                 this._isNavigatingFromTreeToSource = false;
                 //e.Handled = true;
             };
-            item.Expanded += (sender, e) =>
+            item.Expanded += sender =>
             {
                 if (item.Items.Count == 1 && item.Items[0] == null)
                 {
@@ -383,14 +394,14 @@ namespace Workshop.ViewModel
                 }
                 item.ToolTip = item.ToolTip.ToString().Trim();
             }
-            item.Selected += (sender, e) =>
+            item.Background="red";
+            item.Selected += sender =>
             {
                 this._isNavigatingFromTreeToSource = true;
-                //this.typeTextLabel.Visibility = Visibility.Visible;
-                //this.kindTextLabel.Visibility = Visibility.Visible;
-                this.typeValueLabel = trivia.GetType().Name;
-                this.kindValueLabel = kind;
-                // this._propertyGrid.SelectedObject = trivia;
+                this.Type = trivia.GetType().Name;
+                this.Kind = kind;
+                var syntaxDetailViewerViewModel = Ioc.Default.GetService<SyntaxDetailViewerViewModel>();
+                //syntaxDetailViewerViewModel.Init(trivia);
                 item.IsExpanded = true;
                 if (!this._isNavigatingFromSourceToTree && this.SyntaxTriviaNavigationToSourceRequested != null)
                 {
@@ -399,7 +410,7 @@ namespace Workshop.ViewModel
                 this._isNavigatingFromTreeToSource = false;
                 //e.Handled = true;
             };
-            item.Expanded += (sender, e) =>
+            item.Expanded += sender =>
             {
                 if (item.Items.Count == 1 && item.Items[0] == null)
                 {
@@ -413,8 +424,8 @@ namespace Workshop.ViewModel
                 this.RootItems.Add(item);
                 //this.typeTextLabel.Visibility = Visibility.Hidden;
                 //this.kindTextLabel.Visibility = Visibility.Hidden;
-                this.typeValueLabel = string.Empty;
-                this.kindValueLabel = string.Empty;
+                this.Type = string.Empty;
+                this.Kind = string.Empty;
             }
             else
             {
@@ -456,11 +467,22 @@ namespace Workshop.ViewModel
         public event SyntaxTriviaDelegate? SyntaxTriviaDirectedGraphRequested;
         public event SyntaxTriviaDelegate? SyntaxTriviaNavigationToSourceRequested;
 
+        private SyntaxTreeItemInfo _currentItem;
 
+        public SyntaxTreeItemInfo CurrentItem
+        {
+            get { return _currentItem; }
+            set
+            {
+                _currentItem = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         private ObservableCollection<SyntaxTreeItemInfo> _rootItems;
 
-        public ObservableCollection <SyntaxTreeItemInfo> RootItems
+        public ObservableCollection<SyntaxTreeItemInfo> RootItems
         {
             get { return _rootItems; }
             set
@@ -470,6 +492,33 @@ namespace Workshop.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private string _type;
+
+        public string Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+        private string _kind;
+
+        public string Kind
+        {
+            get { return _kind; }
+            set
+            {
+                _kind = value;
+                OnPropertyChanged();
+
+            }
+        }
+
 
     }
 }

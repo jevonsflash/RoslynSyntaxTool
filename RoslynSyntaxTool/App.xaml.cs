@@ -33,6 +33,7 @@ namespace Workshop
                     //ViewModels
                     .AddSingleton<MainViewModel>()
                     .AddSingleton<IndexPageViewModel>()
+                    .AddSingleton<SyntaxDetailViewerViewModel>()
                     .AddSingleton<SettingPageViewModel>()
                     .AddSingleton<ConvertToCSharpPageViewModel>()
                     .AddSingleton<SyntaxTreeViewerViewModel>()
