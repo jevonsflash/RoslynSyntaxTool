@@ -1,19 +1,48 @@
 # Roslyn Syntax Tool
 
-Roslyn 是以 API 为驱动的下一代编译器。RoslynSyntaxTool是利用编译器的API，来创建描述该C#程序的语法树。与在运行时创建语法树对象SyntaxTree.ParseText()相反，此工具返回在编译和执行时构造这种语法树对象的C#源代码, 在动态生成代理类的时候能派上用场
+## 基础概念
+Syntax Api:
 
-生成器代码来自开源RoslynOuter项目，链接: https://github.com/KirillOsenkov/RoslynQuoter
+Roslyn 是微软开源的 .NET 编译平台。编译平台支持 C# 和 Visual Basic 代码编译，并提供丰富的语法分析 API。
+
+语法树(SyntaxTree)是一种由编译器 API 公开的基础数据结构。这些树描述了C#源代码的词法和语法结构。
+
+利用语法分析 API可以将一段C#代码翻译成等效的语法树代码。
+关于语法分析请查看官方文档
+https://docs.microsoft.com/zh-cn/dotnet/csharp/roslyn-sdk/get-started/syntax-analysis
+
+## 应用场景
+
+* 需要动态编译的，如在开发微服务中动态生成代理类，项目的插件化改造等
+* 需要动态生成C#代码脚本的，如项目模板生成器，C#脚本生成工具等
+* 需要分析C#使用场景，如代码安全性审查等
+* ...
+## 介绍
+
+RoslynSyntaxTool利用语法分析 API，提供以下功能：
+
+* 将指定的C#代码转为等效的语法树代码
+* 将语法树代码还原为C#代码
+* 图形化查看语法树结构
+* 查看语法树节点属性详情
 
 这是独立开发者的一个开源项目, 希望得到您的意见反馈，请将Bugs汇报至我的邮箱
 
  ![avatar](https://github.com/MatoApps/RoslynSyntaxTool/blob/master/RST/screenshot.png)
- 
+
+## 感谢
+
+KirillOsenkov的RoslynOuter项目，链接: https://github.com/KirillOsenkov/RoslynQuoter
+
+语法树代码生成器代码借鉴自此项目
+
 ## 更新内容：
 
 
 Date | Version | Content
 :----------: | :-----------: | :-----------
 V1.0         | 2021-3-16        | 初始版本
+V2.0         | 2022-5-16        | 1. 升级项目框架至.Net 6.0  2. 增加ConvertToCSharp页面 3. 更新README
 
 
 
