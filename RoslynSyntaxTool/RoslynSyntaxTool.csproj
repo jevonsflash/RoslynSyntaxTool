@@ -1,121 +1,127 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <RootNamespace>Workshop</RootNamespace>
-    <AssemblyName>RoslynSyntaxTool</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>Workshop</RootNamespace>
+		<AssemblyName>RoslynSyntaxTool</AssemblyName>
+		<Authors>LinXiao</Authors>
+		<Company>MatoApp</Company>
+		<Copyright>Copyright © LinXiao 2024</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/jevonsflash/RoslynSyntaxTool</RepositoryUrl>
+		<Description>Create ECharts Graphic in native .Net environment</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\1.png" />
-    <None Remove="Assets\2.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\1.png" />
+		<None Remove="Assets\2.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Assets\1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<Resource Include="Assets\1.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Assets\2.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AvalonEdit" Version="6.1.3.50" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.1.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.1.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.1.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.1.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ApplicationDefinition Update="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
-  </ItemGroup>
+	<ItemGroup>
+		<ApplicationDefinition Update="App.xaml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</ApplicationDefinition>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="App.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Control\ProgressWindow.xaml.cs">
-      <DependentUpon>ProgressWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Control\SimpleKeyValueControl.xaml.cs">
-      <DependentUpon>SimpleKeyValueControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Control\SyntaxDetailViewer.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="MainWindow.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\AboutWindow.xaml.cs">
-      <DependentUpon>AboutWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\ErrorPage.xaml.cs">
-      <DependentUpon>ErrorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\IndexPage - 复制.xaml.cs">
-      <DependentUpon>IndexPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\IndexPage.xaml.cs">
-      <DependentUpon>IndexPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\SettingPage.xaml.cs">
-      <DependentUpon>SettingPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="App.xaml.cs">
+			<SubType>Code</SubType>
+			<DependentUpon>App.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Control\ProgressWindow.xaml.cs">
+			<DependentUpon>ProgressWindow.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Control\SimpleKeyValueControl.xaml.cs">
+			<DependentUpon>SimpleKeyValueControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Control\SyntaxDetailViewer.xaml.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="MainWindow.xaml.cs">
+			<SubType>Code</SubType>
+			<DependentUpon>MainWindow.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\AboutWindow.xaml.cs">
+			<DependentUpon>AboutWindow.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\ErrorPage.xaml.cs">
+			<DependentUpon>ErrorPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\IndexPage - 复制.xaml.cs">
+			<DependentUpon>IndexPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\IndexPage.xaml.cs">
+			<DependentUpon>IndexPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\SettingPage.xaml.cs">
+			<DependentUpon>SettingPage.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="default.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="default.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Control\ProgressWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Control\SimpleKeyValueControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Control\SyntaxDetailViewer.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Style\ConvertersDictionary.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Style\DefaultDictionary.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\AboutWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ErrorPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ConvertToCSharpPage.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\IndexPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\SettingPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+	<ItemGroup>
+		<Page Update="Control\ProgressWindow.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Control\SimpleKeyValueControl.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Control\SyntaxDetailViewer.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Style\ConvertersDictionary.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Style\DefaultDictionary.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="View\AboutWindow.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="View\ErrorPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="View\ConvertToCSharpPage.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="View\IndexPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="View\SettingPage.xaml">
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
 
 </Project>

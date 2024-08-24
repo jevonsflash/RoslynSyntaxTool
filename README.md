@@ -41,10 +41,11 @@ KirillOsenkov的RoslynOuter项目，链接: https://github.com/KirillOsenkov/Ros
 ## 更新内容：
 
 
-Date | Version | Content
-:----------: | :-----------: | :-----------
-V1.0         | 2021-3-16        | 初始版本
-V2.0         | 2022-5-16        | 1. 升级项目框架至.Net 6.0  2. 增加ConvertToCSharp页面 3. 更新README
+| Date  |  Version  | Content                                                             |
+| :---: | :-------: | :------------------------------------------------------------------ |
+| V1.0  | 2021-3-16 | 初始版本                                                            |
+| V2.0  | 2022-5-16 | 1. 升级项目框架至.Net 6.0  2. 增加ConvertToCSharp页面 3. 更新README |
+| V2.1  | 2024-8-24 | 修复语法树代码生成器代码生成错误的问题                              |
 
 
 

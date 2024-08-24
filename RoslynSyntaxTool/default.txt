@@ -6,6 +6,9 @@ namespace HelloWorld
 {
     class Program
     {
+        ///<summary>
+        ///The program entry point
+        ///</summary>
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
