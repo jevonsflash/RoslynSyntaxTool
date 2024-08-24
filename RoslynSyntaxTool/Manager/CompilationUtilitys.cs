@@ -24,9 +24,10 @@ namespace Workshop.Manager
                 MetadataReference.CreateFromFile(typeof(SyntaxFactory).GetTypeInfo().Assembly.Location)
             };
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            var allReferences = assemblies.Where(c => !c.IsDynamic).Select(x => { 
-                var f = MetadataReference.CreateFromFile(x.Location); 
-                return f; 
+            var allReferences = assemblies.Where(c => !c.IsDynamic).Select(x =>
+            {
+                var f = MetadataReference.CreateFromFile(x.Location);
+                return f;
             }).Concat(references);
             return Compile(AssemblyInfo.Create("RoslynSyntaxTool.Proxy.ConvertToCSharpProxy"), trees, allReferences);
         }
@@ -44,11 +45,8 @@ namespace Workshop.Manager
             var result = compilation.Emit(stream);
             if (!result.Success)
             {
-                foreach (var message in result.Diagnostics.Select(i => i.ToString()))
-                {
-                    System.Console.WriteLine(message);
-                }
-                return null;
+                var msgs = result.Diagnostics.Select(i => i.ToString());
+                throw new Exception("语法树动态编译出错\r\n===Start===\r\n"+ string.Join("\r\n", msgs)+"\r\n===End===\r\n请将源码和报错信息反馈至开发者，谢谢\r\n\r\n");
             }
             stream.Seek(0, SeekOrigin.Begin);
             return stream;

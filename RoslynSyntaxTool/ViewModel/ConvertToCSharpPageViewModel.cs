@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ControlzEx.Standard;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using Microsoft.CodeAnalysis;
@@ -88,6 +89,20 @@ namespace Workshop.ViewModel
 .WithUsings(
     SyntaxFactory.List<UsingDirectiveSyntax>(
         new UsingDirectiveSyntax[]{
+            SyntaxFactory.UsingDirective(
+                    SyntaxFactory.IdentifierName("System"))
+            .WithUsingKeyword(
+                SyntaxFactory.Token(
+                    SyntaxFactory.TriviaList(),
+                    SyntaxKind.UsingKeyword,
+                    SyntaxFactory.TriviaList(
+                        SyntaxFactory.Space)))
+            .WithSemicolonToken(
+                SyntaxFactory.Token(
+                    SyntaxFactory.TriviaList(),
+                    SyntaxKind.SemicolonToken,
+                    SyntaxFactory.TriviaList(
+                        SyntaxFactory.CarriageReturnLineFeed))),
             SyntaxFactory.UsingDirective(
                 SyntaxFactory.QualifiedName(
                     SyntaxFactory.IdentifierName("Microsoft"),
@@ -264,39 +279,46 @@ namespace Workshop.ViewModel
 
 
                         var stream = CompilationUtilitys.CompileClientProxy(new List<SyntaxTree>() { treeFrame });
-
-                        using (stream)
+                        if (stream!=null)
                         {
-                            var assembly = Assembly.Load(stream.ToArray());
-                            _generatedServiceProxyAssembly = assembly;
-
-                        }
-                        var serviceProxyTypes = _generatedServiceProxyAssembly.GetExportedTypes();
-
-                        object serviceProxyObject = null;
-                        Type serviceProxyObjectType = null;
-
-                        foreach (var serviceProxyType in serviceProxyTypes)
-                        {
-                            var typeInfo = serviceProxyType.GetTypeInfo();
-                            if (typeInfo.FullName=="RoslynSyntaxTool.Process.ProxyTreeGen")
+                            using (stream)
                             {
-                                serviceProxyObjectType=serviceProxyType;
-                                var instance = serviceProxyType.GetTypeInfo().GetConstructors().First().Invoke(null);
-                                serviceProxyObject=instance;
+                                var assembly = Assembly.Load(stream.ToArray());
+                                _generatedServiceProxyAssembly = assembly;
+
+                            }
+                            var serviceProxyTypes = _generatedServiceProxyAssembly.GetExportedTypes();
+
+                            object serviceProxyObject = null;
+                            Type serviceProxyObjectType = null;
+
+                            foreach (var serviceProxyType in serviceProxyTypes)
+                            {
+                                var typeInfo = serviceProxyType.GetTypeInfo();
+                                if (typeInfo.FullName=="RoslynSyntaxTool.Process.ProxyTreeGen")
+                                {
+                                    serviceProxyObjectType=serviceProxyType;
+                                    var instance = serviceProxyType.GetTypeInfo().GetConstructors().First().Invoke(null);
+                                    serviceProxyObject=instance;
+                                }
+
+
+
+                            }
+                            var result = "没有结果，请检查输入代码";
+                            var processor = serviceProxyObjectType.GetMethod("Process");
+                            if (processor!=null)
+                            {
+                                result = processor.Invoke(serviceProxyObject, null).ToString();
                             }
 
-
-
+                            responseText =result;
                         }
-                        var result = "没有结果，请检查输入代码";
-                        var processor = serviceProxyObjectType.GetMethod("Process");
-                        if (processor!=null)
+                        else
                         {
-                            result = processor.Invoke(serviceProxyObject, null).ToString();
-                        }
+                            responseText ="语法树动态编译出错，检查 EmitResult.Diagnostics 属性。请将源码和报错信息反馈至开发者，谢谢";
 
-                        responseText =result;
+                        }
                     }
                     catch (Exception ex)
                     {
